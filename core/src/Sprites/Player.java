@@ -2,6 +2,8 @@ package Sprites;
 
 import Screens.GameScreen;
 import Screens.MenuScreen;
+import Utils.Grid;
+import Utils.GridScroller;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.math.Vector2;
@@ -17,10 +19,13 @@ public class Player {
     private final int PPM = (int)GameScreen.PPM;
     private Body player;
     private final static float speed = 5;
+    public boolean build = false;
+    GridScroller hammer;
 
-    public Player(){
+    public Player(Grid grid){
         //create player
         createBox();
+        hammer = new GridScroller(grid, this);
     }
 
     private void createBox(){
@@ -42,11 +47,20 @@ public class Player {
         update(delta);
         world.step(delta, 6, 2);
         debugRenderer.render(world, GameScreen.camera.combined);
+        hammer.update(delta);
     }
     public void update(float delta){
-        horizantal();
+        if (!build){
+            move();
+        }
+        build();
     }
-    public void horizantal(){
+    private void build(){
+        if (Gdx.input.isKeyJustPressed(Input.Keys.DOWN)){
+            build = !build;
+        }
+    }
+    private void move(){
         int xForce = 0;
         int yForce = 0;
         if (Gdx.input.isKeyPressed(Input.Keys.LEFT)){
@@ -55,7 +69,7 @@ public class Player {
         if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)){
             xForce=1;
         }
-        if (Gdx.input.isKeyJustPressed(Input.Keys.UP)){
+        if (Gdx.input.isKeyJustPressed(Input.Keys.UP) && player.getLinearVelocity().y == 0){
             yForce=1;
         }
         player.setLinearVelocity(xForce*speed, player.getLinearVelocity().y+(yForce*speed));

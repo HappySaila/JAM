@@ -8,6 +8,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 
@@ -26,6 +27,8 @@ public class GameScreen implements Screen {
     public static final float xZero = -MenuScreen.viewPortX/PPM;
     public static final float yZero = -MenuScreen.viewPortY/PPM;
     private Grid grid;
+    private Texture img = new Texture("block.png");
+
 
     public GameScreen(JamDriver game){
         this.game = game;
@@ -37,7 +40,8 @@ public class GameScreen implements Screen {
         createField();
         System.out.println((int)(MenuScreen.viewPortX/ GridBlock.size) +" : "+ (int)(MenuScreen.viewPortY/ GridBlock.size));
         grid = new Grid( (int)(MenuScreen.viewPortY/ GridBlock.size) , (int)(MenuScreen.viewPortX/ GridBlock.size));
-        players[0] = new Player();
+//        grid = new Grid(1,1);
+        players[0] = new Player(grid);
     }
 
     private void createField(){
@@ -74,16 +78,25 @@ public class GameScreen implements Screen {
         Gdx.gl.glClearColor(0.7f, 0.25f, 0.25f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-        world.step(delta, 6,2);
-        debugRenderer.render(world, camera.combined);
-
         for (Player p: players){
             p.render(delta);
         }
         grid.render(delta);
+
+        JamDriver.sb.begin();
+        for (GridBlock[] row : grid.getGrid()){
+            for (GridBlock b: row){
+                if (b.getBlock().isActive()){
+                    b.render(delta);
+                }
+            }
+        }
+        JamDriver.sb.draw(img,0,0);
+        JamDriver.sb.end();
     }
     public void update(float delta){
-
+        world.step(delta, 6,2);
+        debugRenderer.render(world, camera.combined);
     }
 
 

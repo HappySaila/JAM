@@ -22,7 +22,6 @@ public class Grid {
 //                System.out.println("x:"+i+" y: "+j);
             }
         }
-        grid[0][0]=new GridBlock(0,0);
     }
 
     public void render(float delta){
@@ -39,5 +38,8 @@ public class Grid {
     }
     public void removeGrid(int x, int y, GridBlock block){
         grid[y][x] = block;
+    }
+    public GridBlock[][] getGrid(){
+        return grid;
     }
 }

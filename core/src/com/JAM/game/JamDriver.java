@@ -13,7 +13,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 public class JamDriver extends Game {
 	public static final int SCR_H = 900;
 	public static final int SCR_W =  1080;
-	public SpriteBatch sb;
+	public static SpriteBatch sb;
 	public BitmapFont font;
 	private Screen screen;
 
