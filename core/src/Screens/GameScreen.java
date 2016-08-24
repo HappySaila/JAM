@@ -2,6 +2,7 @@ package Screens;
 
 import Sprites.Player;
 import Utils.Grid;
+import Utils.GridBlock;
 import com.JAM.game.JamDriver;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
@@ -16,7 +17,7 @@ import com.badlogic.gdx.physics.box2d.*;
 public class GameScreen implements Screen {
     final JamDriver game;
     public static World world;
-    public final static int PPM = 100;
+    public final static float PPM = 100;
     public static Box2DDebugRenderer debugRenderer;
     public static final OrthographicCamera camera = new OrthographicCamera(MenuScreen.viewPortX/PPM,
             MenuScreen.viewPortY/PPM);
@@ -34,7 +35,8 @@ public class GameScreen implements Screen {
         debugRenderer = new Box2DDebugRenderer();
         //generate static box2D
         createField();
-        grid = new Grid(10,10);
+        System.out.println((int)(MenuScreen.viewPortX/ GridBlock.size) +" : "+ (int)(MenuScreen.viewPortY/ GridBlock.size));
+        grid = new Grid( (int)(MenuScreen.viewPortY/ GridBlock.size) , (int)(MenuScreen.viewPortX/ GridBlock.size));
         players[0] = new Player();
     }
 

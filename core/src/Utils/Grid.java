@@ -16,23 +16,22 @@ public class Grid {
 
     public Grid(int x, int y){
         grid = new GridBlock[y][x];
-//        for (int i = 0; i < y-1; i++) {
-//            for (int j = 0; j < x-1; j++) {
-//                grid[y][x]=new GridBlock(x,y);
-////                System.out.println("x:"+i+" y: "+j);
-//            }
-//        }
+        for (int i = 0; i < y; i++) {
+            for (int j = 0; j < x; j++) {
+                grid[i][j]= new GridBlock(i,j);
+//                System.out.println("x:"+i+" y: "+j);
+            }
+        }
         grid[0][0]=new GridBlock(0,0);
     }
 
     public void render(float delta){
-//        for (GridBlock[] row : grid){
-//            for(GridBlock block : row){
-//                //draw the block
+        for (GridBlock[] row : grid){
+            for(GridBlock block : row){
+                //draw the block
 //                block.render(delta);
-//            }
-//        }
-        grid[0][0].render(delta);
+            }
+        }
     }
 
     public void addGrid(int x, int y, GridBlock block){

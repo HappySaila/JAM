@@ -14,9 +14,9 @@ public class Player {
     private World world = GameScreen.world;
     private Box2DDebugRenderer debugRenderer = GameScreen.debugRenderer;
     private static final float size = 20;
-    private final int PPM = GameScreen.PPM;
+    private final int PPM = (int)GameScreen.PPM;
     private Body player;
-    private final static int speed = 5;
+    private final static float speed = 5;
 
     public Player(){
         //create player
