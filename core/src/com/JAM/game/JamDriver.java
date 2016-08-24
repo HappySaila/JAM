@@ -1,27 +1,33 @@
 package com.JAM.game;
 
+import Screens.MenuScreen;
 import com.badlogic.gdx.ApplicationAdapter;
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
-public class JamDriver extends ApplicationAdapter {
-	SpriteBatch batch;
-	Texture img;
-	
+public class JamDriver extends Game {
+	public static final int SCR_H = 900;
+	public static final int SCR_W =  1080;
+	public SpriteBatch sb;
+	public BitmapFont font;
+	private Screen screen;
+
 	@Override
 	public void create () {
-		batch = new SpriteBatch();
-		img = new Texture("badlogic.jpg");
+		sb = new SpriteBatch();
+		font = new BitmapFont();
+		font.getData().scale(5);
+		screen = new MenuScreen(this);
+		setScreen(screen);
 	}
 
 	@Override
 	public void render () {
-		Gdx.gl.glClearColor(1, 0, 0, 1);
-		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-		batch.begin();
-		batch.draw(img, 0, 0);
-		batch.end();
+		super.render();
 	}
 }
