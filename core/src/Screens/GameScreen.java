@@ -1,6 +1,7 @@
 package Screens;
 
 import Sprites.Player;
+import Utils.Grid;
 import com.JAM.game.JamDriver;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
@@ -23,6 +24,7 @@ public class GameScreen implements Screen {
     private int numberPlayers;
     public static final float xZero = -MenuScreen.viewPortX/PPM;
     public static final float yZero = -MenuScreen.viewPortY/PPM;
+    private Grid grid;
 
     public GameScreen(JamDriver game){
         this.game = game;
@@ -32,7 +34,7 @@ public class GameScreen implements Screen {
         debugRenderer = new Box2DDebugRenderer();
         //generate static box2D
         createField();
-
+        grid = new Grid(10,10);
         players[0] = new Player();
     }
 
@@ -76,6 +78,7 @@ public class GameScreen implements Screen {
         for (Player p: players){
             p.render(delta);
         }
+        grid.render(delta);
     }
     public void update(float delta){
 

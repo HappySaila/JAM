@@ -26,7 +26,7 @@ public class Player {
     private void createBox(){
         BodyDef bdef = new BodyDef();
         bdef.type = BodyDef.BodyType.DynamicBody;
-        bdef.position.set(0/PPM, 400/PPM);
+//        bdef.position.set(0/PPM, 400/PPM);
         player = world.createBody(bdef);
 
         PolygonShape shape = new PolygonShape();
@@ -34,6 +34,7 @@ public class Player {
 
         FixtureDef fdef = new FixtureDef();
         fdef.shape = shape;
+        fdef.friction =0;
         player.createFixture(fdef);
     }
 
